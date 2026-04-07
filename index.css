@@ -2142,7 +2142,7 @@ a {
   }
 
   .logo-img {
-    max-height: 90px;
+    max-height: 130px;
   }
 
   .nav-links {
@@ -2151,9 +2151,14 @@ a {
     gap: 1rem;
   }
 
+  /* Hide the CTA button in nav on mobile — it's already in the hero */
   .nav-btn {
-    padding: 0.55rem 1rem;
-    font-size: 0.85rem;
+    display: none;
+  }
+
+  /* Hide the hero CTA on mobile — the bottom CTA section covers it */
+  .hero-cta-wrapper {
+    display: none;
   }
 
   .hero {
@@ -2236,29 +2241,31 @@ a {
 
   .hidden-mobile { display: none; }
 
-  /* Footer responsive */
+  /* Footer responsive — single column, centered */
   .footer-main {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 2.5rem;
+    padding: 3rem 0 2.5rem;
   }
 
   .footer-brand {
-    grid-column: 1 / -1;
     align-items: center;
     text-align: center;
   }
 
+  .footer-logo-img {
+    max-height: 120px;
+    align-self: center;
+  }
+
   .footer-tagline {
-    max-width: 480px;
+    max-width: 380px;
+    text-align: center;
+    margin: 0 auto;
   }
 
   .footer-social {
     justify-content: center;
-  }
-
-  .footer-col-title::after {
-    left: 50%;
-    transform: translateX(-50%);
   }
 
   .footer-col {
@@ -2266,7 +2273,24 @@ a {
     text-align: center;
   }
 
+  .footer-col-title {
+    text-align: center;
+  }
+
+  .footer-col-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .footer-links {
+    align-items: center;
+  }
+
   .footer-links li {
+    justify-content: center;
+  }
+
+  .footer-contact-list li {
     justify-content: center;
   }
 
