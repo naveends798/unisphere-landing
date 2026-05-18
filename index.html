@@ -576,6 +576,18 @@
       })(document, "script");
     </script>
     <script src="script.js"></script>
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" id="videoModalClose">&times;</button>
+            <div class="video-embed-wrapper">
+                <video id="heroVideoPlayer" width="100%" height="100%" controls playsinline preload="metadata">
+                    <source src="https://assets.cdn.filesafe.space/RMKU21pbVFKOM96McXKx/media/6a0afb33c56db4013f91ca4c.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
@@ -619,6 +631,55 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && videoModal.classList.contains('active')) {
         videoModal.classList.remove('active');
         videoIframe.src = videoIframe.src;
+    }
+});
+</script>
+
+<script>
+// Video Modal Functionality (Updated for MP4)
+const videoPlaceholder = document.getElementById('heroVideoPlaceholder');
+const videoModal = document.getElementById('videoModal');
+const videoModalClose = document.getElementById('videoModalClose');
+const videoPlayer = document.getElementById('heroVideoPlayer');
+
+if (videoPlaceholder && videoModal) {
+    videoPlaceholder.addEventListener('click', () => {
+        videoModal.classList.add('active');
+        if (videoPlayer) {
+            videoPlayer.play().catch(() => {});
+        }
+    });
+}
+
+if (videoModalClose && videoModal) {
+    videoModalClose.addEventListener('click', () => {
+        videoModal.classList.remove('active');
+        if (videoPlayer) {
+            videoPlayer.pause();
+            videoPlayer.currentTime = 0;
+        }
+    });
+}
+
+if (videoModal) {
+    videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+            videoModal.classList.remove('active');
+            if (videoPlayer) {
+                videoPlayer.pause();
+                videoPlayer.currentTime = 0;
+            }
+        }
+    });
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && videoModal && videoModal.classList.contains('active')) {
+        videoModal.classList.remove('active');
+        if (videoPlayer) {
+            videoPlayer.pause();
+            videoPlayer.currentTime = 0;
+        }
     }
 });
 </script>
