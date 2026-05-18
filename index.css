@@ -2589,3 +2589,53 @@ a {
     color: white;
     text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
+
+/* Navbar - Deep Fix */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    width: 100%;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    max-height: 42px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    font-family: var(--font-main);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.nav-phone {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gold-primary);
+}
+
+.nav-link {
+    color: var(--text-gray-light);
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--text-white);
+}
+
+.nav-btn {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
