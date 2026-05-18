@@ -125,6 +125,25 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Premium Video Placeholder -->
+            <div class="hero-video-wrapper">
+                <div class="video-placeholder" id="heroVideoPlaceholder">
+                    <div class="video-thumbnail">
+                        <img src="ai_agent.png" alt="Unisphere AI Voice Agent Demo" class="video-thumb-img">
+                        <div class="video-play-button">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                        <div class="video-overlay-gradient"></div>
+                    </div>
+                    <div class="video-meta">
+                        <span class="video-duration">1:42</span>
+                        <span class="video-label">See the AI in action</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Section 1: Problem Story -->
@@ -559,3 +578,47 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+<script>
+// Video Modal Functionality
+const videoPlaceholder = document.getElementById('heroVideoPlaceholder');
+const videoModal = document.getElementById('videoModal');
+const videoModalClose = document.getElementById('videoModalClose');
+const videoIframe = document.getElementById('videoIframe');
+
+// Open modal when clicking the video placeholder
+if (videoPlaceholder) {
+    videoPlaceholder.addEventListener('click', () => {
+        videoModal.classList.add('active');
+        // Optional: Auto-play (uncomment if using YouTube)
+        // videoIframe.src = videoIframe.src + "?autoplay=1";
+    });
+}
+
+// Close modal
+if (videoModalClose) {
+    videoModalClose.addEventListener('click', () => {
+        videoModal.classList.remove('active');
+        // Reset iframe to stop video
+        videoIframe.src = videoIframe.src;
+    });
+}
+
+// Close modal when clicking outside
+if (videoModal) {
+    videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+            videoModal.classList.remove('active');
+            videoIframe.src = videoIframe.src;
+        }
+    });
+}
+
+// Close with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+        videoModal.classList.remove('active');
+        videoIframe.src = videoIframe.src;
+    }
+});
+</script>
