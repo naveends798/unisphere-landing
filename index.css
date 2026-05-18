@@ -103,7 +103,7 @@ body {
   z-index: 1;
   pointer-events: none;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -233,7 +233,7 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -309,7 +309,7 @@ a {
 /* ============================================ */
 .btn {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
@@ -359,14 +359,14 @@ a {
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 0.75rem 0;
   width: 100%;
 }
 
 .logo-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
 }
 
@@ -378,7 +378,7 @@ a {
 
 .nav-links {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 2rem;
   font-family: var(--font-main);
   font-weight: 500;
@@ -396,7 +396,7 @@ a {
 
 .nav-phone {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   color: var(--gold-primary);
   transition: color 0.2s;
@@ -417,7 +417,7 @@ a {
 .hero {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   text-align: center;
   padding: 2rem 0 4rem 0;
@@ -429,7 +429,7 @@ a {
   max-width: 900px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   z-index: 10;
 }
 
@@ -444,7 +444,7 @@ a {
   color: var(--text-gray-light);
   margin-bottom: 1.5rem;
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   backdrop-filter: blur(12px);
   animation: fadeInDown 0.8s ease-out;
 }
@@ -489,7 +489,7 @@ a {
 
 .features-list {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 2.5rem;
   color: var(--text-gray-light);
@@ -500,7 +500,7 @@ a {
 
 .feature-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
 }
 
@@ -557,7 +557,7 @@ a {
   right: 2rem;
   z-index: 100;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   animation: float 4s ease-in-out infinite;
   transition: opacity 0.3s ease;
@@ -577,7 +577,7 @@ a {
   font-size: 0.9rem;
   font-weight: 500;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(16px);
@@ -790,7 +790,7 @@ a {
   width: 36px;
   height: 36px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   border-radius: 50%;
   transition: background 0.2s, color 0.2s;
@@ -804,7 +804,7 @@ a {
 /* ── Panel Header ── */
 .voice-panel-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   padding: 1.5rem 1.5rem 1rem;
 }
@@ -842,7 +842,7 @@ a {
 .voice-panel-body {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 2.5rem 1.5rem;
   min-height: 220px;
@@ -858,7 +858,7 @@ a {
   width: 100px;
   height: 100px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -893,7 +893,7 @@ a {
   color: var(--gold-primary);
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   transition: all 0.3s ease;
   position: relative;
@@ -949,14 +949,14 @@ a {
 /* ── Active Call State ── */
 .active-call-visual {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   margin-bottom: 1rem;
 }
 
 .voice-wave-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 5px;
   height: 60px;
 }
@@ -1008,7 +1008,7 @@ a {
 .call-controls {
   display: flex;
   gap: 1.25rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .control-btn {
@@ -1018,7 +1018,7 @@ a {
   border: none;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   transition: all 0.25s ease;
 }
@@ -1271,7 +1271,7 @@ a {
   background: rgba(234,179,8,0.08);
   border: 1px solid rgba(234,179,8,0.15);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-size: 1.5rem;
   transition: all 0.3s;
@@ -1336,7 +1336,7 @@ a {
   display: grid;
   grid-template-columns: 1fr 1.15fr;
   gap: 4rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 /* Left: Text Column */
@@ -1374,7 +1374,7 @@ a {
 
 .agent-highlight-list li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   font-size: 1.05rem;
   color: var(--text-gray-light);
@@ -1386,7 +1386,7 @@ a {
   position: relative;
   min-height: 480px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -1491,7 +1491,7 @@ a {
   border-radius: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 2px;
   color: var(--gold-primary);
@@ -1513,7 +1513,7 @@ a {
 .caller-node {
   position: absolute;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.6rem;
   background: rgba(14,14,18,0.85);
   border: 1px solid rgba(255,255,255,0.08);
@@ -1540,7 +1540,7 @@ a {
   border-radius: 50%;
   background: rgba(255,255,255,0.05);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-size: 1.2rem;
   flex-shrink: 0;
@@ -1637,7 +1637,7 @@ a {
 .action-badge {
   position: absolute;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   background: rgba(14,14,18,0.92);
   border: 1px solid rgba(234,179,8,0.18);
@@ -1680,7 +1680,7 @@ a {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   background: rgba(14,14,18,0.92);
   border: 1px solid rgba(34,197,94,0.3);
@@ -1765,7 +1765,7 @@ a {
   background: rgba(234, 179, 8, 0.08);
   border: 1px solid rgba(234,179,8,0.15);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
@@ -1808,7 +1808,7 @@ a {
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: 2rem 1.5rem;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
@@ -1893,7 +1893,7 @@ a {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   transition: background 0.2s;
 }
 
@@ -1997,7 +1997,7 @@ a {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.06);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   color: var(--text-gray);
   transition: all 0.3s ease;
@@ -2048,7 +2048,7 @@ a {
 
 .footer-links li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
 }
 
@@ -2075,7 +2075,7 @@ a {
 .footer-bottom {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 1.5rem 0;
   border-top: 1px solid rgba(255,255,255,0.04);
 }
@@ -2087,7 +2087,7 @@ a {
 
 .footer-bottom-links {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
 }
 
@@ -2125,9 +2125,9 @@ a {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  .agent-showcase-text { align-items: center; text-align: center; }
+  .agent-showcase-text { align-items: flex-start; text-align: center; }
   .agent-showcase-text .section-title { text-align: center; }
-  .agent-highlight-list { align-items: center; }
+  .agent-highlight-list { align-items: flex-start; }
   .agent-showcase-visual { min-height: 400px; }
   .agent-command-center { height: 380px; }
 }
@@ -2249,7 +2249,7 @@ a {
   }
 
   .footer-brand {
-    align-items: center;
+    align-items: flex-start;
     text-align: center;
   }
 
@@ -2269,7 +2269,7 @@ a {
   }
 
   .footer-col {
-    align-items: center;
+    align-items: flex-start;
     text-align: center;
   }
 
@@ -2283,7 +2283,7 @@ a {
   }
 
   .footer-links {
-    align-items: center;
+    align-items: flex-start;
   }
 
   .footer-links li {
@@ -2320,7 +2320,7 @@ a {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
+    align-items: flex-start;
     gap: 3rem;
     padding-top: 2rem;
     min-height: 100vh;
@@ -2331,7 +2331,7 @@ a {
     z-index: 3;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .video-placeholder {
@@ -2387,7 +2387,7 @@ a {
     background: rgba(234, 179, 8, 0.95);
     border-radius: 50%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     color: #0a0b10;
     z-index: 2;
@@ -2403,7 +2403,7 @@ a {
 .video-meta {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 1rem;
     padding: 0 0.5rem;
 }
@@ -2430,7 +2430,7 @@ a {
     background: rgba(0, 0, 0, 0.9);
     z-index: 9999;
     display: none;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 2rem;
 }
@@ -2490,5 +2490,32 @@ a {
         max-width: 420px;
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+/* Left-aligned hero text improvements */
+.hero-content {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.hero-content .pill {
+    align-self: flex-start;
+}
+
+.features-list {
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+@media (max-width: 1024px) {
+    .hero-content {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .hero-content .pill,
+    .features-list {
+        align-self: center;
     }
 }
