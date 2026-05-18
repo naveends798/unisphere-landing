@@ -2639,3 +2639,30 @@ a {
     font-size: 0.9rem;
     white-space: nowrap;
 }
+
+/* Single Column Centered Hero Layout */
+.hero.single-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 2rem;
+    min-height: auto;
+}
+
+.hero.single-column .hero-content {
+    max-width: 720px;
+    align-items: center;
+    text-align: center;
+}
+
+.hero.single-column .hero-video-wrapper {
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 720px;
+}
+
+/* Restore larger logo */
+.logo-img {
+    max-height: 68px;
+}
