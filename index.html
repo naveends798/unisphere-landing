@@ -130,7 +130,7 @@
             <div class="hero-video-wrapper">
                 <div class="video-placeholder" id="heroVideoPlaceholder">
                     <div class="video-thumbnail">
-                        <img src="ai_agent.png" alt="Unisphere AI Voice Agent Demo" class="video-thumb-img">
+                        <img src="video-thumbnail.png" alt="Unisphere AI Voice Agent Demo" class="video-thumb-img">
                         <div class="video-play-button">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8 5v14l11-7z"/>
@@ -234,7 +234,7 @@
                         <div class="agent-image-glow"></div>
                         
                         <!-- The AI Agent Image -->
-                        <img src="ai_agent.png" alt="AI Voice Agent answering calls 24/7" class="agent-hero-image" />
+                        <img src="video-thumbnail.png" alt="AI Voice Agent answering calls 24/7" class="agent-hero-image" />
                         
                         <!-- Floating Action Badges overlaid on image -->
                         <div class="action-badge badge-1">
@@ -682,4 +682,29 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+</script>
+
+<script>
+// Inline Video Playback (Replaces thumbnail on click)
+const videoPlaceholder = document.getElementById('heroVideoPlaceholder');
+
+if (videoPlaceholder) {
+    videoPlaceholder.addEventListener('click', function() {
+        // Create video element
+        const video = document.createElement('video');
+        video.src = 'https://assets.cdn.filesafe.space/RMKU21pbVFKOM96McXKx/media/6a0afb33c56db4013f91ca4c.mp4';
+        video.controls = true;
+        video.autoplay = true;
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.borderRadius = '16px';
+        video.style.objectFit = 'cover';
+
+        // Replace placeholder content with video
+        videoPlaceholder.innerHTML = '';
+        videoPlaceholder.appendChild(video);
+        videoPlaceholder.style.cursor = 'default';
+        videoPlaceholder.style.boxShadow = '0 20px 60px -15px rgba(0, 0, 0, 0.6)';
+    });
+}
 </script>
