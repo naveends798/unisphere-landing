@@ -2666,3 +2666,16 @@ a {
 .logo-img {
     max-height: 180px;
 }
+
+/* Center align pill and improve headline width */
+.hero.single-column .pill {
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-title {
+    max-width: 720px;
+    line-height: 1.1;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+}
