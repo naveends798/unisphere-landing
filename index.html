@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unisphere | AI-Powered Growth for Local Business</title>
     <meta name="description" content="Unisphere Marketing — Your AI Voice Agent answers every call, books appointments 24/7, and never lets a lead slip away. Done-for-you AI growth for local businesses.">
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="logo-360.png" imagesrcset="logo-180.png 180w, logo-360.png 360w" imagesizes="180px" fetchpriority="high">
     <link rel="stylesheet" href="index.css">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 
@@ -70,7 +67,7 @@
     <div class="wrapper">
         <header class="navbar">
             <div class="logo-container">
-                <img src="logo.png" alt="Unisphere Marketing Logo" class="logo-img">
+                <img src="logo-180.png" srcset="logo-180.png 180w, logo-360.png 360w" sizes="180px" width="180" height="180" alt="Unisphere Marketing Logo" class="logo-img" fetchpriority="high" decoding="async">
             </div>
             
             <nav class="nav-links">
@@ -128,9 +125,9 @@
 
             <!-- Premium Video Placeholder -->
             <div class="hero-video-wrapper">
-                <div class="video-placeholder" id="heroVideoPlaceholder">
+                <div class="video-placeholder" id="heroVideoPlaceholder" role="button" tabindex="0" aria-label="Play the Unisphere AI Voice Agent demo video">
                     <div class="video-thumbnail">
-                        <img src="ai_agent.png" alt="Unisphere AI Voice Agent Demo" class="video-thumb-img">
+                        <img src="video-thumbnail-720.jpg" srcset="video-thumbnail-480.jpg 480w, video-thumbnail-720.jpg 720w" sizes="(max-width: 768px) calc(100vw - 2rem), 720px" width="970" height="521" alt="Unisphere AI Voice Agent Demo" class="video-thumb-img" loading="lazy" decoding="async">
                         <div class="video-play-button">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8 5v14l11-7z"/>
@@ -234,7 +231,7 @@
                         <div class="agent-image-glow"></div>
                         
                         <!-- The AI Agent Image -->
-                        <img src="ai_agent.png" alt="AI Voice Agent answering calls 24/7" class="agent-hero-image" />
+                        <img src="ai-agent-640.jpg" srcset="ai-agent-420.jpg 420w, ai-agent-640.jpg 640w" sizes="(max-width: 768px) calc(100vw - 2rem), 520px" width="640" height="640" alt="AI Voice Agent answering calls 24/7" class="agent-hero-image" loading="lazy" decoding="async" />
                         
                         <!-- Floating Action Badges overlaid on image -->
                         <div class="action-badge badge-1">
@@ -382,7 +379,7 @@
             <div class="footer-main">
                 <!-- Column 1: Logo & Description -->
                 <div class="footer-brand">
-                    <img src="logo.png" alt="Unisphere Marketing Logo" class="footer-logo-img">
+                    <img src="logo-180.png" srcset="logo-180.png 180w, logo-360.png 360w" sizes="120px" width="180" height="180" alt="Unisphere Marketing Logo" class="footer-logo-img" loading="lazy" decoding="async">
                     <p class="footer-tagline">AI-Powered Growth for Local Businesses. Never miss a call, never lose a lead. Your 24/7 AI growth engine.</p>
                     <div class="footer-social">
                         <a href="#" class="social-link" aria-label="Facebook">
@@ -460,7 +457,7 @@
             
             <div class="voice-panel-header">
                 <div class="voice-panel-avatar">
-                    <img src="kate_avatar.png" alt="Kate" />
+                    <img src="kate-avatar-160.jpg" width="160" height="160" alt="Kate" loading="lazy" decoding="async" />
                 </div>
                 <div class="voice-panel-info">
                     <h3>Talk to Kate</h3>
@@ -552,159 +549,12 @@
             <div class="avatar-shimmer-2"></div>
             <div class="avatar-glow"></div>
             <div class="avatar-inner">
-                <img src="kate_avatar.png" alt="Kate — AI Receptionist" />
+                <img src="kate-avatar-96.jpg" srcset="kate-avatar-96.jpg 96w, kate-avatar-160.jpg 160w" sizes="68px" width="96" height="96" alt="Kate — AI Receptionist" decoding="async" />
             </div>
             <div class="status-dot"></div>
         </div>
     </div>
 
-    <!-- Vapi Web SDK -->
-    <script>
-      var vapiInstance = null;
-      (function (d, t) {
-        var g = document.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-        g.src =
-          "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
-        g.defer = true;
-        g.async = true;
-        s.parentNode.insertBefore(g, s);
-        g.onload = function () {
-          console.log('✅ Vapi SDK loaded');
-          window._vapiSDKReady = true;
-        };
-      })(document, "script");
-    </script>
-    <script src="script.js"></script>
-    <!-- Video Modal -->
-    <div class="video-modal" id="videoModal">
-        <div class="video-modal-content">
-            <button class="video-modal-close" id="videoModalClose">&times;</button>
-            <div class="video-embed-wrapper">
-                <video id="heroVideoPlayer" width="100%" height="100%" controls playsinline preload="metadata">
-                    <source src="https://assets.cdn.filesafe.space/RMKU21pbVFKOM96McXKx/media/6a0afb33c56db4013f91ca4c.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-    </div>
+    <script src="script.js" defer></script>
 </body>
 </html>
-
-<script>
-// Video Modal Functionality
-const videoPlaceholder = document.getElementById('heroVideoPlaceholder');
-const videoModal = document.getElementById('videoModal');
-const videoModalClose = document.getElementById('videoModalClose');
-const videoIframe = document.getElementById('videoIframe');
-
-// Open modal when clicking the video placeholder
-if (videoPlaceholder) {
-    videoPlaceholder.addEventListener('click', () => {
-        videoModal.classList.add('active');
-        // Optional: Auto-play (uncomment if using YouTube)
-        // videoIframe.src = videoIframe.src + "?autoplay=1";
-    });
-}
-
-// Close modal
-if (videoModalClose) {
-    videoModalClose.addEventListener('click', () => {
-        videoModal.classList.remove('active');
-        // Reset iframe to stop video
-        videoIframe.src = videoIframe.src;
-    });
-}
-
-// Close modal when clicking outside
-if (videoModal) {
-    videoModal.addEventListener('click', (e) => {
-        if (e.target === videoModal) {
-            videoModal.classList.remove('active');
-            videoIframe.src = videoIframe.src;
-        }
-    });
-}
-
-// Close with Escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && videoModal.classList.contains('active')) {
-        videoModal.classList.remove('active');
-        videoIframe.src = videoIframe.src;
-    }
-});
-</script>
-
-<script>
-// Video Modal Functionality (Updated for MP4)
-const videoPlaceholder = document.getElementById('heroVideoPlaceholder');
-const videoModal = document.getElementById('videoModal');
-const videoModalClose = document.getElementById('videoModalClose');
-const videoPlayer = document.getElementById('heroVideoPlayer');
-
-if (videoPlaceholder && videoModal) {
-    videoPlaceholder.addEventListener('click', () => {
-        videoModal.classList.add('active');
-        if (videoPlayer) {
-            videoPlayer.play().catch(() => {});
-        }
-    });
-}
-
-if (videoModalClose && videoModal) {
-    videoModalClose.addEventListener('click', () => {
-        videoModal.classList.remove('active');
-        if (videoPlayer) {
-            videoPlayer.pause();
-            videoPlayer.currentTime = 0;
-        }
-    });
-}
-
-if (videoModal) {
-    videoModal.addEventListener('click', (e) => {
-        if (e.target === videoModal) {
-            videoModal.classList.remove('active');
-            if (videoPlayer) {
-                videoPlayer.pause();
-                videoPlayer.currentTime = 0;
-            }
-        }
-    });
-}
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && videoModal && videoModal.classList.contains('active')) {
-        videoModal.classList.remove('active');
-        if (videoPlayer) {
-            videoPlayer.pause();
-            videoPlayer.currentTime = 0;
-        }
-    }
-});
-</script>
-
-<script>
-// Inline Video Playback (Replaces thumbnail on click)
-const videoPlaceholder = document.getElementById('heroVideoPlaceholder');
-
-if (videoPlaceholder) {
-    videoPlaceholder.addEventListener('click', function() {
-        // Create video element
-        const video = document.createElement('video');
-        video.src = 'https://assets.cdn.filesafe.space/RMKU21pbVFKOM96McXKx/media/6a0afb33c56db4013f91ca4c.mp4';
-        video.controls = true;
-        video.autoplay = true;
-        video.style.width = '100%';
-        video.style.height = '100%';
-        video.style.borderRadius = '16px';
-        video.style.objectFit = 'cover';
-
-        // Replace placeholder content with video
-        videoPlaceholder.innerHTML = '';
-        videoPlaceholder.appendChild(video);
-        videoPlaceholder.style.cursor = 'default';
-        videoPlaceholder.style.boxShadow = '0 20px 60px -15px rgba(0, 0, 0, 0.6)';
-    });
-}
-</script>

@@ -2,10 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── VAPI Configuration ───
     const VAPI_PUBLIC_KEY = '3c251d20-bdc4-446a-82e6-01d629960017';
     const VAPI_ASSISTANT_ID = 'a41f1bb5-652e-441c-a8da-ec3b65c69f3b';
+    const VAPI_SDK_SRC = 'https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js';
+    const DEMO_VIDEO_SRC = 'unisphere-demo-720p.mp4';
+    const DEMO_VIDEO_POSTER = 'video-thumbnail-720.jpg';
 
     let vapi = null;
+    let vapiLoadPromise = null;
+    let vapiListenersAttached = false;
     let isMuted = false;
     let isCallActive = false;
+    let demoVideoPreloadStarted = false;
+    let demoVideoPreloadElement = null;
 
     // ─── DOM Elements ───
     const chatWidget = document.getElementById('chatWidget');
@@ -21,52 +28,86 @@ document.addEventListener('DOMContentLoaded', () => {
     const mutedIcon = document.getElementById('mutedIcon');
     const voiceStatusText = document.getElementById('voiceStatusText');
     const waveContainer = document.querySelector('.voice-wave-container');
+    const videoPlaceholder = document.getElementById('heroVideoPlaceholder');
 
     // State panels
     const voiceIdleState = document.getElementById('voiceIdleState');
     const voiceConnectingState = document.getElementById('voiceConnectingState');
     const voiceActiveState = document.getElementById('voiceActiveState');
 
-    // ─── Initialize Vapi ───
-    function initVapi() {
-        // The Vapi HTML script tag exposes window.vapiSDK
-        // We run it with our config but hide its default button
+    function loadVapiSdk() {
         if (window.vapiSDK) {
-            vapiInstance = window.vapiSDK.run({
+            return Promise.resolve();
+        }
+
+        if (vapiLoadPromise) return vapiLoadPromise;
+
+        vapiLoadPromise = new Promise((resolve, reject) => {
+            const existingScript = document.querySelector('script[data-vapi-sdk]');
+            if (existingScript) {
+                existingScript.addEventListener('load', resolve, { once: true });
+                existingScript.addEventListener('error', reject, { once: true });
+                return;
+            }
+
+            const sdkScript = document.createElement('script');
+            sdkScript.src = VAPI_SDK_SRC;
+            sdkScript.async = true;
+            sdkScript.defer = true;
+            sdkScript.dataset.vapiSdk = 'true';
+            sdkScript.onload = () => resolve();
+            sdkScript.onerror = () => reject(new Error('Failed to load voice SDK'));
+            document.head.appendChild(sdkScript);
+        });
+
+        return vapiLoadPromise;
+    }
+
+    // ─── Initialize Vapi ───
+    async function initVapi() {
+        if (vapi) return vapi;
+
+        try {
+            await loadVapiSdk();
+
+            if (!window.vapiSDK) {
+                throw new Error('Voice SDK unavailable');
+            }
+
+            vapi = window.vapiSDK.run({
                 apiKey: VAPI_PUBLIC_KEY,
                 assistant: VAPI_ASSISTANT_ID,
                 config: {
-                    hide: true,           // Hide the default Vapi button entirely
+                    hide: true,
                     position: 'bottom-right'
                 }
             });
-            vapi = vapiInstance;
+
             setupVapiListeners();
-            console.log('✅ Vapi initialized with custom UI');
-        } else if (window._vapiSDKReady === undefined) {
-            // SDK hasn't loaded yet, retry
-            setTimeout(initVapi, 500);
-        } else {
-            setTimeout(initVapi, 300);
+            return vapi;
+        } catch (error) {
+            console.error('Vapi initialization failed:', error);
+            return null;
         }
     }
 
     // ─── Vapi Event Listeners ───
     function setupVapiListeners() {
+        if (vapiListenersAttached) return;
+
         if (!vapi || !vapi.on) {
-            console.log('ℹ️ Vapi instance does not support .on events (using HTML tag mode)');
             return;
         }
 
+        vapiListenersAttached = true;
+
         vapi.on('call-start', () => {
-            console.log('📞 Call connected');
             isCallActive = true;
             showState('active');
-            voiceStatusText.textContent = 'Kate is listening...';
+            if (voiceStatusText) voiceStatusText.textContent = 'Kate is listening...';
         });
 
         vapi.on('call-end', () => {
-            console.log('📞 Call ended');
             isCallActive = false;
             isMuted = false;
             resetMuteUI();
@@ -75,18 +116,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         vapi.on('speech-start', () => {
-            voiceStatusText.textContent = 'Kate is speaking...';
+            if (voiceStatusText) voiceStatusText.textContent = 'Kate is speaking...';
             if (waveContainer) waveContainer.classList.add('speaking');
         });
 
         vapi.on('speech-end', () => {
-            voiceStatusText.textContent = 'Kate is listening...';
+            if (voiceStatusText) voiceStatusText.textContent = 'Kate is listening...';
             if (waveContainer) waveContainer.classList.remove('speaking');
         });
 
         vapi.on('error', (error) => {
-            console.error('❌ Vapi error:', error);
-            voiceStatusText.textContent = 'Connection error. Try again.';
+            console.error('Vapi error:', error);
+            if (voiceStatusText) voiceStatusText.textContent = 'Connection error. Try again.';
             setTimeout(() => {
                 isCallActive = false;
                 showState('idle');
@@ -95,13 +136,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         vapi.on('message', (message) => {
             if (message.type === 'transcript' && message.transcriptType === 'final') {
-                console.log(`💬 ${message.role}: ${message.transcript}`);
+                console.log(`${message.role}: ${message.transcript}`);
             }
         });
     }
 
     // ─── State Management ───
     function showState(state) {
+        if (!voiceIdleState || !voiceConnectingState || !voiceActiveState) return;
+
         voiceIdleState.classList.add('voice-state-hidden');
         voiceConnectingState.classList.add('voice-state-hidden');
         voiceActiveState.classList.add('voice-state-hidden');
@@ -150,13 +193,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openVoicePanel() {
-        voiceOverlay.classList.add('active');
-        chatWidget.style.opacity = '0';
-        chatWidget.style.pointerEvents = 'none';
+        if (voiceOverlay) voiceOverlay.classList.add('active');
+        if (chatWidget) {
+            chatWidget.style.opacity = '0';
+            chatWidget.style.pointerEvents = 'none';
+        }
         // Hide greeting
         if (chatGreeting) {
             chatGreeting.style.display = 'none';
         }
+        initVapi();
     }
 
     function closeVoicePanel() {
@@ -169,10 +215,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Call end error:', e);
             }
         }
-        voiceOverlay.classList.remove('active');
+        if (voiceOverlay) voiceOverlay.classList.remove('active');
         setTimeout(() => {
-            chatWidget.style.opacity = '1';
-            chatWidget.style.pointerEvents = 'auto';
+            if (chatWidget) {
+                chatWidget.style.opacity = '1';
+                chatWidget.style.pointerEvents = 'auto';
+            }
             showState('idle');
         }, 400);
     }
@@ -195,20 +243,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start call
     if (startCallBtn) {
         startCallBtn.addEventListener('click', async () => {
-            if (!vapi) {
-                console.error('Vapi not initialized yet');
-                // Try to initialize
-                initVapi();
-                return;
-            }
+            showState('connecting');
+            const activeVapi = await initVapi();
+
             try {
-                showState('connecting');
+                if (!activeVapi) {
+                    throw new Error('Voice SDK not ready');
+                }
+
                 // Use Vapi's start method
-                if (vapi.start) {
-                    await vapi.start(VAPI_ASSISTANT_ID);
-                } else if (vapi.call) {
+                if (activeVapi.start) {
+                    await activeVapi.start(VAPI_ASSISTANT_ID);
+                } else if (activeVapi.call) {
                     // Some versions use .call()
-                    vapi.call();
+                    activeVapi.call();
                     // Simulate entering active state after a delay
                     setTimeout(() => {
                         isCallActive = true;
@@ -278,12 +326,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function preloadDemoVideo() {
+        if (demoVideoPreloadStarted) return;
+        demoVideoPreloadStarted = true;
+
+        demoVideoPreloadElement = document.createElement('video');
+        demoVideoPreloadElement.src = DEMO_VIDEO_SRC;
+        demoVideoPreloadElement.preload = 'metadata';
+        demoVideoPreloadElement.muted = true;
+        demoVideoPreloadElement.load();
+    }
+
+    function playDemoVideo() {
+        if (!videoPlaceholder || videoPlaceholder.classList.contains('is-playing')) return;
+
+        const video = document.createElement('video');
+        video.src = DEMO_VIDEO_SRC;
+        video.poster = DEMO_VIDEO_POSTER;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.preload = 'auto';
+        video.width = 1280;
+        video.height = 720;
+        video.className = 'hero-inline-video';
+
+        videoPlaceholder.classList.add('is-playing');
+        videoPlaceholder.removeAttribute('role');
+        videoPlaceholder.removeAttribute('tabindex');
+        videoPlaceholder.replaceChildren(video);
+
+        video.play().catch(() => {
+            video.controls = true;
+        });
+    }
+
+    if (videoPlaceholder) {
+        videoPlaceholder.addEventListener('pointerenter', preloadDemoVideo, { once: true });
+        videoPlaceholder.addEventListener('touchstart', preloadDemoVideo, { once: true, passive: true });
+        videoPlaceholder.addEventListener('focus', preloadDemoVideo, { once: true });
+        videoPlaceholder.addEventListener('click', playDemoVideo);
+        videoPlaceholder.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                playDemoVideo();
+            }
+        });
+    }
+
     // ─── FAQ Accordion ───
     const faqItems = document.querySelectorAll('.faq-item');
     
     faqItems.forEach(item => {
         const questionBtn = item.querySelector('.faq-question');
         const answer = item.querySelector('.faq-answer');
+
+        if (!questionBtn || !answer) return;
         
         questionBtn.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
@@ -291,7 +389,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Close all others
             faqItems.forEach(otherItem => {
                 otherItem.classList.remove('active');
-                otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                const otherAnswer = otherItem.querySelector('.faq-answer');
+                if (otherAnswer) otherAnswer.style.maxHeight = null;
             });
             
             // Toggle current
@@ -321,8 +420,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         revealElements.forEach(el => revealObserver.observe(el));
     }
-
-    // ─── Initialize ───
-    // Wait a bit for the Vapi SDK script to load
-    setTimeout(initVapi, 1000);
 });
