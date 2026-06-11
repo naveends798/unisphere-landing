@@ -2942,3 +2942,199 @@ a {
     font-size: 0.98rem;
   }
 }
+
+/* ============================================ */
+/* SERVICE DETAIL PAGES                          */
+/* ============================================ */
+
+/* Service hero — centered, single column */
+.svc-hero {
+  text-align: center;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 3rem 0 3.5rem;
+  position: relative;
+  z-index: 10;
+}
+.svc-hero .pill {
+  margin: 0 auto 1.75rem;
+}
+.svc-hero-icon {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 1.75rem;
+  border-radius: 20px;
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid var(--gold-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1rem;
+  box-shadow: 0 0 30px rgba(234, 179, 8, 0.1);
+  animation: fadeInUp 0.8s ease-out both;
+}
+.svc-hero .hero-title {
+  font-size: 3.4rem;
+}
+.svc-hero .hero-subtitle {
+  margin-left: auto;
+  margin-right: auto;
+}
+.svc-hero .features-list {
+  justify-content: center;
+}
+
+/* Stat strip — premium metric row */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.stat {
+  text-align: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 2rem 1.25rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.stat:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-border);
+}
+.stat-num {
+  font-family: var(--font-main);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label {
+  color: var(--text-gray);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* Before / After — signature comparison block */
+.before-after {
+  max-width: 1000px;
+}
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  align-items: stretch;
+  margin-top: 2.5rem;
+}
+.ba-card {
+  border-radius: 20px;
+  padding: 2.25rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+.ba-card.before {
+  background: rgba(239, 68, 68, 0.04);
+  border: 1px solid rgba(239, 68, 68, 0.12);
+}
+.ba-card.after {
+  background: rgba(234, 179, 8, 0.04);
+  border: 1px solid var(--gold-border);
+  box-shadow: 0 0 50px rgba(234, 179, 8, 0.05);
+}
+.ba-card.after::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold-gradient);
+  opacity: 0.5;
+}
+.ba-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 1.5rem;
+}
+.ba-card.before .ba-label {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+}
+.ba-card.after .ba-label {
+  color: var(--gold-primary);
+  background: rgba(234, 179, 8, 0.1);
+}
+.ba-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.ba-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--text-gray-light);
+}
+.ba-mark {
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-weight: 700;
+}
+.ba-card.before .ba-mark { color: #ef4444; }
+.ba-card.after .ba-mark { color: var(--gold-primary); }
+.ba-transition {
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-top: 2.5rem;
+}
+
+/* "Learn More" link on homepage service cards */
+.service-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--gold-primary);
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+.service-card-link:hover {
+  gap: 0.7rem;
+  color: #fef08a;
+}
+
+@media (max-width: 768px) {
+  .svc-hero {
+    padding: 1.5rem 0 2rem;
+  }
+  .svc-hero .hero-title {
+    font-size: 2.3rem;
+  }
+  .stat-strip {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .ba-grid {
+    grid-template-columns: 1fr;
+  }
+}
